@@ -14,7 +14,7 @@ const production = !process.env.ROLLUP_WATCH;
 export default {
   input: "src/index.tsx",
   output: {
-    file: "build/bundle.js",
+    file: "public/build/bundle.js",
     format: "iife",
     sourcemap: true,
   },
@@ -39,7 +39,7 @@ export default {
         host: "localhost",
         port: 3000,
       }),
-    !production && livereload({ watch: "build" }),
+    !production && livereload({ watch: "public" }),
     typescript(),
     image(),
     postcss({
