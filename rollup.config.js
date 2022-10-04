@@ -46,7 +46,6 @@ export default {
     image(),
     postcss({
       extensions: [".css"],
-      // extract: false,
       modules: true,
       use: ["sass"],
     }),

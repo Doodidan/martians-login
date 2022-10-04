@@ -1,4 +1,12 @@
 import React from "react";
+import { Cover } from "./components/Cover";
+import "./reset.css";
+import { Form } from "./components/Form";
+
 export default function App() {
-  return <h1>Hello World From React-Rollup</h1>;
+  return (
+    <Cover>
+      <Form />
+    </Cover>
+  );
 }
