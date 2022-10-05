@@ -3,11 +3,13 @@ import React, {
   FC,
   FormEvent,
   useCallback,
+  useEffect,
   useState,
 } from "react";
 import css from "./index.module.scss";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
-import { emailRegex } from "../../constants";
+import { emailRegex, pwdLetter, pwdNumber, pwdSpecial } from "../../constants";
+import { ProgressBar } from "../ProgressBar";
 
 type SignupFormProps = {
   toggleMode: () => void;
@@ -58,6 +60,21 @@ export const SignupForm: FC<SignupFormProps> = ({ toggleMode }) => {
     [email, email2, pwd, setSavedPwd, toggleMode]
   );
 
+  const [pwdDifficulty, setPwdDifficulty] = useState<number>(0);
+  useEffect(() => {
+    let difficulty = 0;
+    const max = 6;
+
+    if (pwd.length) difficulty++;
+    if (pwd.length > 5) difficulty++;
+    if (pwd.length > 10) difficulty++;
+    if (pwd.match(pwdLetter)) difficulty++;
+    if (pwd.match(pwdNumber)) difficulty++;
+    if (pwd.match(pwdSpecial)) difficulty++;
+
+    setPwdDifficulty(difficulty / max);
+  }, [pwd]);
+
   return (
     <form className={css.form} onSubmit={saveForm}>
       <label className={css.form__email_container}>
@@ -78,6 +95,8 @@ export const SignupForm: FC<SignupFormProps> = ({ toggleMode }) => {
         <h1 className={css.form__field_title}>Password</h1>
         <input type={"password"} onChange={changePwd} value={pwd} required />
         <p className={css.form__error}>{pwdError ? "Enter password" : null}</p>
+        <h2 className={css.form__difficulty}>Password difficulty</h2>
+        <ProgressBar progress={pwdDifficulty} />
       </label>
 
       <div className={css.form__links_container}>
