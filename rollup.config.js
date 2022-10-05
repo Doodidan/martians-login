@@ -8,7 +8,6 @@ import typescript from "@rollup/plugin-typescript";
 import image from "@rollup/plugin-image";
 import postcss from "rollup-plugin-postcss";
 import { terser } from "rollup-plugin-terser";
-// import css from "@modular-css/rollup";
 
 const production = !process.env.ROLLUP_WATCH;
 
