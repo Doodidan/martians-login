@@ -58,14 +58,26 @@ export const LoginForm: FC<LoginFormProps> = ({ toggleMode }) => {
     <form className={css.form} onSubmit={loginHandler}>
       <label className={css.form__email_container}>
         <h1 className={css.form__field_title}>Email:</h1>
-        <input type={"email"} onChange={changeEmail} value={email} required />
+        <input
+          className={css.form__input}
+          type={"email"}
+          onChange={changeEmail}
+          value={email}
+          required
+        />
         <p className={css.form__error}>
           {emailError ? "Enter correct email" : null}
         </p>
       </label>
       <label className={css.form__password_container}>
         <h1 className={css.form__field_title}>Password</h1>
-        <input type={"password"} onChange={changePwd} value={pwd} required />
+        <input
+          className={css.form__input}
+          type={"password"}
+          onChange={changePwd}
+          value={pwd}
+          required
+        />
         <p className={css.form__error}>{pwdError ? "Enter password" : null}</p>
       </label>
 
@@ -77,7 +89,7 @@ export const LoginForm: FC<LoginFormProps> = ({ toggleMode }) => {
         <a className={css.form__link} tabIndex={0}>
           Forgot password?
         </a>
-        <button type={"submit"} className={css.form__submit}>
+        <button className={css.form__submit} type={"submit"}>
           Log in
         </button>
       </div>

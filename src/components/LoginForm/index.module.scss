@@ -47,4 +47,10 @@
   &__error {
     color: coral;
   }
+
+  &__input {
+    border-radius: 5px;
+    padding: 0.25em;
+    border: 0;
+  }
 }

@@ -79,28 +79,46 @@ export const SignupForm: FC<SignupFormProps> = ({ toggleMode }) => {
     <form className={css.form} onSubmit={saveForm}>
       <label className={css.form__email_container}>
         <h1 className={css.form__field_title}>Email:</h1>
-        <input type={"email"} onChange={changeEmail} value={email} required />
+        <input
+          className={css.form__input}
+          type={"email"}
+          onChange={changeEmail}
+          value={email}
+          required
+        />
         <p className={css.form__error}>
           {emailError ? "Enter correct email" : null}
         </p>
       </label>
       <label className={css.form__email_container}>
         <h1 className={css.form__field_title}>Repeat email:</h1>
-        <input type={"email"} onChange={changeEmail2} value={email2} required />
+        <input
+          className={css.form__input}
+          type={"email"}
+          onChange={changeEmail2}
+          value={email2}
+          required
+        />
         <p className={css.form__error}>
           {email2Error ? "Emails do not match each other" : null}
         </p>
       </label>
       <label className={css.form__password_container}>
         <h1 className={css.form__field_title}>Password</h1>
-        <input type={"password"} onChange={changePwd} value={pwd} required />
+        <input
+          className={css.form__input}
+          type={"password"}
+          onChange={changePwd}
+          value={pwd}
+          required
+        />
         <p className={css.form__error}>{pwdError ? "Enter password" : null}</p>
         <h2 className={css.form__difficulty}>Password difficulty</h2>
         <ProgressBar progress={pwdDifficulty} />
       </label>
 
       <div className={css.form__links_container}>
-        <button type={"submit"} className={css.form__submit}>
+        <button className={css.form__submit} type={"submit"}>
           Sign up
         </button>
       </div>
