@@ -1,6 +1,7 @@
 export enum Modes {
   "Login",
   "Signup",
+  "Password",
 }
 
 export const emailRegex =

@@ -9,57 +9,60 @@ import css from "./index.module.scss";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
 import { emailRegex } from "../../constants";
 
-type LoginFormProps = {
+type PasswordFormProps = {
+  setLoginMode: () => void;
   setSignupMode: () => void;
-  setPasswordMode: () => void;
 };
 
-export const LoginForm: FC<LoginFormProps> = ({
+export const PasswordForm: FC<PasswordFormProps> = ({
+  setLoginMode,
   setSignupMode,
-  setPasswordMode,
 }) => {
   const [email, setEmail] = useState<string>("");
-  const [pwd, setPwd] = useState<string>("");
+  const [captcha, setCaptcha] = useState<string>("");
 
   const [emailError, setEmailError] = useState(false);
-  const [pwdError, setPwdError] = useState(false);
+  const [captchaError, setCaptchaError] = useState(false);
   const [formError, setFormError] = useState(false);
+
+  const [formInfo, setFormInfo] = useState<string | undefined>();
 
   const changeEmail = useCallback(
     (event: ChangeEvent<HTMLInputElement>) => setEmail(event.target.value),
     []
   );
-  const changePwd = useCallback(
-    (event: ChangeEvent<HTMLInputElement>) => setPwd(event.target.value),
+  const changeCaptcha = useCallback(
+    (event: ChangeEvent<HTMLInputElement>) => setCaptcha(event.target.value),
     []
   );
 
   const [savedPwd] = useLocalStorage(email);
 
-  const loginHandler = useCallback(
+  const showPwd = useCallback(
     (event: FormEvent<HTMLFormElement>) => {
       event.preventDefault();
 
       const isEmail = !!email && email.toLowerCase().match(emailRegex);
-      const isPwd = !!pwd;
+      const isCaptcha = !!captcha && captcha === "89";
 
       setEmailError(!isEmail);
-      setPwdError(!isPwd);
+      setCaptchaError(!isCaptcha);
 
-      if (isEmail && isPwd) {
-        if (savedPwd === pwd) {
+      if (isEmail && isCaptcha) {
+        if (savedPwd) {
+          setFormInfo("Your password is " + savedPwd);
           setFormError(false);
-          alert("Success");
         } else {
+          setFormInfo("Account is not found");
           setFormError(true);
         }
       }
     },
-    [email, savedPwd, pwd]
+    [email, savedPwd, captcha]
   );
 
   return (
-    <form className={css.form} onSubmit={loginHandler}>
+    <form className={css.form} onSubmit={showPwd}>
       <label className={css.form__email_container}>
         <h1 className={css.form__field_title}>Email:</h1>
         <input
@@ -73,37 +76,34 @@ export const LoginForm: FC<LoginFormProps> = ({
           {emailError ? "Enter correct email" : null}
         </p>
       </label>
-      <label className={css.form__password_container}>
-        <h1 className={css.form__field_title}>Password</h1>
+      <label className={css.form__captcha_container}>
+        <h1 className={css.form__field_title}>What's 80 + 9?</h1>
         <input
           className={css.form__input}
-          type={"password"}
-          onChange={changePwd}
-          value={pwd}
+          type={"text"}
+          onChange={changeCaptcha}
+          value={captcha}
           required
         />
-        <p className={css.form__error}>{pwdError ? "Enter password" : null}</p>
+        <p className={css.form__error}>{captchaError ? "Wrong!" : null}</p>
       </label>
 
-      <p className={css.form__error}>
-        {formError ? "Incorrect email or password" : null}
+      <button className={css.form__submit} type={"submit"}>
+        Restore password
+      </button>
+
+      <p className={formError ? css.form__error : css.form__info}>
+        {formInfo ?? null}
       </p>
 
       <div className={css.form__links_container}>
-        <a className={css.form__link} tabIndex={0} onClick={setPasswordMode}>
-          Forgot password?
+        <a className={css.form__link} tabIndex={0} onClick={setSignupMode}>
+          Sign up
         </a>
-        <button className={css.form__submit} type={"submit"}>
+        <a className={css.form__link} tabIndex={0} onClick={setLoginMode}>
           Log in
-        </button>
+        </a>
       </div>
-      <a
-        className={`${css.form__link} ${css.form__sign_up}`}
-        tabIndex={0}
-        onClick={setSignupMode}
-      >
-        Sign up
-      </a>
     </form>
   );
 };

@@ -1,12 +1,17 @@
-import React, { useCallback, useState } from "react";
+import React, { FC, useCallback, useState } from "react";
 import { Cover } from "./components/Cover";
 import "./global.css";
 import { LoginForm } from "./components/LoginForm";
 import { Modes } from "./constants";
 import { SignupForm } from "./components/SignupForm";
+import { PasswordForm } from "./components/PasswordForm";
 
-export default function App() {
+type AppProps = {};
+
+export const App: FC<AppProps> = () => {
   const [mode, setMode] = useState<Modes>(Modes.Login);
+
+  console.log(setMode, "setMode");
 
   const setLoginMode = useCallback(() => {
     setMode(Modes.Login);
@@ -14,14 +19,25 @@ export default function App() {
   const setSignupMode = useCallback(() => {
     setMode(Modes.Signup);
   }, []);
+  const setPasswordMode = useCallback(() => {
+    setMode(Modes.Password);
+  }, []);
 
   return (
     <Cover>
       {mode === Modes.Login ? (
-        <LoginForm toggleMode={setSignupMode} />
+        <LoginForm
+          setSignupMode={setSignupMode}
+          setPasswordMode={setPasswordMode}
+        />
+      ) : mode === Modes.Signup ? (
+        <SignupForm setLoginMode={setLoginMode} />
       ) : (
-        <SignupForm toggleMode={setLoginMode} />
+        <PasswordForm
+          setLoginMode={setLoginMode}
+          setSignupMode={setSignupMode}
+        />
       )}
     </Cover>
   );
-}
+};

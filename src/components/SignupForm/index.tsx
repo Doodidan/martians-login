@@ -12,10 +12,10 @@ import { emailRegex, pwdLetter, pwdNumber, pwdSpecial } from "../../constants";
 import { ProgressBar } from "../ProgressBar";
 
 type SignupFormProps = {
-  toggleMode: () => void;
+  setLoginMode: () => void;
 };
 
-export const SignupForm: FC<SignupFormProps> = ({ toggleMode }) => {
+export const SignupForm: FC<SignupFormProps> = ({ setLoginMode }) => {
   const [email, setEmail] = useState<string>("");
   const [email2, setEmail2] = useState<string>("");
   const [pwd, setPwd] = useState<string>("");
@@ -54,10 +54,10 @@ export const SignupForm: FC<SignupFormProps> = ({ toggleMode }) => {
       if (isEmail && isEmail2 && isPwd) {
         setSavedPwd(pwd);
         alert("Success!");
-        toggleMode();
+        setLoginMode();
       }
     },
-    [email, email2, pwd, setSavedPwd, toggleMode]
+    [email, email2, pwd, setSavedPwd, setLoginMode]
   );
 
   const [pwdDifficulty, setPwdDifficulty] = useState<number>(0);
@@ -123,9 +123,9 @@ export const SignupForm: FC<SignupFormProps> = ({ toggleMode }) => {
         </button>
       </div>
       <a
-        className={`${css.form__link} ${css.form__sign_up}`}
+        className={`${css.form__link} ${css.form__log_in}`}
         tabIndex={0}
-        onClick={toggleMode}
+        onClick={setLoginMode}
       >
         Log in
       </a>

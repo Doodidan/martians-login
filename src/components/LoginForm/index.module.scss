@@ -30,6 +30,7 @@
 
   &__link {
     color: blue;
+    cursor: pointer;
   }
 
   &__sign_up {
@@ -46,6 +47,7 @@
 
   &__error {
     color: coral;
+    min-height: 1.1em;
   }
 
   &__input {
