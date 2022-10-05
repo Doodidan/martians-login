@@ -1,7 +1,10 @@
+@import '../../colors.scss';
+@import '../../sizes.scss';
+
 .form {
-  width: 300px;
+  width: $container-width;
   padding: 20px;
-  border-radius: 10px;
+  border-radius: $radius-standard;
   background-color: rgba(0,0,0,0.35);
 
   display: flex;
@@ -17,9 +20,8 @@
   }
 
   &__field_title {
-    font-size: 1.25em;
-    margin: 0;
-    margin-bottom: 0.2em;
+    font-size: $font-big;
+    margin: 0 0 0.2em 0;
   }
 
   &__links_container {
@@ -29,7 +31,7 @@
   }
 
   &__link {
-    color: blue;
+    color: $link-color;
     cursor: pointer;
   }
 
@@ -40,23 +42,23 @@
 
   &__submit {
     border: 0;
-    border-radius: 5px;
+    border-radius: $radius-mini;
     padding: 5px 10px;
-    background-color: aquamarine;
+    background-color: $active-color;
   }
 
   &__error {
-    color: coral;
-    min-height: 1.1em;
+    color: $error-color;
+    min-height: $font-medium;
   }
 
   &__difficulty {
-    font-size: 1.1em;
+    font-size: $font-medium;
     margin: 2px 0 0 0;
   }
 
   &__input {
-    border-radius: 5px;
+    border-radius: $radius-mini;
     padding: 0.25em;
     border: 0;
   }

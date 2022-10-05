@@ -1,6 +1,6 @@
 import React, { FC, useCallback, useState } from "react";
 import { Cover } from "./components/Cover";
-import "./global.css";
+import "./global.scss";
 import { LoginForm } from "./components/LoginForm";
 import { Modes } from "./constants";
 import { SignupForm } from "./components/SignupForm";
